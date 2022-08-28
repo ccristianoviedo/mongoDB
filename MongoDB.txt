@@ -1,0 +1,103 @@
+test> use ecommerce
+switched to db ecommerce
+
+ecommerce> db.createCollection("productos")
+{ ok: 1 }
+
+ecommerce> db.createCollection("mensajes")
+{ ok: 1 }
+
+ecommerce> show collections
+mensajes
+productos
+
+ecommerce> db.productos.insertMany([
+... { producto : "cocina", precio: 4500, color:"gris"},
+... { producto : "silla", precio: 100 , color:"negra"},
+... { producto : "sillon", precio: 3000, color:"verde"},
+... { producto : "mesa", precio:1000, color:"gris"},
+... { producto : "televisro", precio: 3400 , color:"negro"},
+... { producto : "cuadro", precio: 200, color:"azul"},
+... { producto : "mochila", precio: 500 , color:"negra"},
+... { producto : "ventana", precio: 5000, color:"blanca"},
+... { producto : "ropero", precio: 2000,color:"marron"},
+... { producto : "teclado", precio: 1500, color:"negro"},
+... ]
+... )
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("630b71c93cc2b4197d834089"),
+    '1': ObjectId("630b71c93cc2b4197d83408a"),
+    '2': ObjectId("630b71c93cc2b4197d83408b"),
+    '3': ObjectId("630b71c93cc2b4197d83408c"),
+    '4': ObjectId("630b71c93cc2b4197d83408d"),
+    '5': ObjectId("630b71c93cc2b4197d83408e"),
+    '6': ObjectId("630b71c93cc2b4197d83408f"),
+    '7': ObjectId("630b71c93cc2b4197d834090"),
+    '8': ObjectId("630b71c93cc2b4197d834091"),
+    '9': ObjectId("630b71c93cc2b4197d834092")
+  }
+}
+
+ecommerce> db.mensajes.insertMany([
+... {usuario:"Chicho",mensaje:"buen dia, Hola" },
+... {usuario:"Jose",mensaje:"buen dia" },
+... {usuario:"Nicolas",mensaje:"buen dia, como andan?" },
+... {usuario:"Jose",mensaje:"como esta el dia?" },
+... {usuario:"Nicolas",mensaje:"Hace calor" },
+... {usuario:"Florencia",mensaje:"Hola"},
+... {usuario:"Chicho",mensaje:"Hola!!" },
+... {usuario:"JuanChi",mensaje:"buen dia" },
+... {usuario:"Marta",mensaje:"buen dia Hola y chau" },
+... {usuario:"Ernesto",mensaje: "buen dia, como va?" }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("630b72ca3cc2b4197d834093"),
+    '1': ObjectId("630b72ca3cc2b4197d834094"),
+    '2': ObjectId("630b72ca3cc2b4197d834095"),
+    '3': ObjectId("630b72ca3cc2b4197d834096"),
+    '4': ObjectId("630b72ca3cc2b4197d834097"),
+    '5': ObjectId("630b72ca3cc2b4197d834098"),
+    '6': ObjectId("630b72ca3cc2b4197d834099"),
+    '7': ObjectId("630b72ca3cc2b4197d83409a"),
+    '8': ObjectId("630b72ca3cc2b4197d83409b"),
+    '9': ObjectId("630b72ca3cc2b4197d83409c")
+  }
+}
+
+ecommerce> db.productos.find()
+
+ecommerce> db.mensajes.find()
+
+ecommerce> db.productos.estimatedDocumentCount()
+
+ecommerce> db.mensajes.estimatedDocumentCount()
+
+ecommerce> db.productos.insertOne({ producto : "impresora", precio: 4760,color:"gris"})
+
+ecommerce> db.productos.find({precio:{$lt:1000}})
+
+ecommerce> db.productos.find({precio:{$gt:3000}})
+
+ecommerce> db.productos.find({precio:{$lt:1000 $gt:3000}})
+
+db.productos.find({$and:[{precio:{$gt:1000}}, {precio:{$lt:3000}}]})
+
+db.productos.find({}).sort({precio:1}).limit(1).skip(2)
+
+db.productos.updateMany({precio:{$gt:90}},{$set:{stock:100}})
+
+db.productos.updateMany({precio:{$gt:4000}},{$set:{stock:0}})
+
+db.productos.deleteMany({precio:{$lt:1000}})
+
+
+
+
+
+
+
+
